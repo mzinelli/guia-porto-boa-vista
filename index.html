@@ -3,20 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Guia de Prestadores de Serviços - Condomínio Porto Boa Vista</title>
+  <title>Guia do Condomínio Porto Boa Vista</title>
   <style>
     :root {
-      --primary-color: #0d6efd;
-      --primary-dark: #0a58ca;
+      --primary-color: #1e3a8a;
+      --primary-hover: #1e40af;
+      --accent-color: #0d9488;
       --whatsapp-color: #25D366;
       --whatsapp-hover: #1eb954;
-      --bg-color: #f4f6f8;
+      --bg-color: #f8fafc;
       --card-bg: #ffffff;
-      --text-main: #212529;
-      --text-muted: #6c757d;
-      --border-color: #e9ecef;
-      --border-radius: 12px;
-      --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+      --border-radius: 14px;
+      --box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+      --chip-bg: #f1f5f9;
+      --chip-text: #334155;
+      --notice-bg: #eff6ff;
+      --notice-border: #3b82f6;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --primary-color: #3b82f6;
+        --primary-hover: #60a5fa;
+        --accent-color: #14b8a6;
+        --bg-color: #0f172a;
+        --card-bg: #1e293b;
+        --text-main: #f8fafc;
+        --text-muted: #94a3b8;
+        --border-color: #334155;
+        --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        --chip-bg: #334155;
+        --chip-text: #e2e8f0;
+        --notice-bg: #1e3a8a22;
+        --notice-border: #3b82f6;
+      }
     }
 
     * {
@@ -30,28 +53,30 @@
       background-color: var(--bg-color);
       color: var(--text-main);
       line-height: 1.5;
-      padding: 20px 12px;
+      padding: 20px 12px 80px 12px;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     .container {
-      max-width: 1000px;
+      max-width: 1040px;
       margin: 0 auto;
     }
 
     header {
       text-align: center;
-      padding: 28px 20px;
-      background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+      padding: 32px 20px 24px 20px;
+      background: var(--card-bg);
       border-radius: var(--border-radius);
       box-shadow: var(--box-shadow);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
       border: 1px solid var(--border-color);
     }
 
     header h1 {
-      font-size: 1.75rem;
-      color: var(--primary-dark);
+      font-size: 1.8rem;
+      color: var(--primary-color);
       margin-bottom: 6px;
+      font-weight: 800;
     }
 
     header p {
@@ -60,31 +85,106 @@
       font-weight: 500;
     }
 
+    /* Controls: Search & Category Chips */
+    .controls-wrapper {
+      position: sticky;
+      top: 12px;
+      z-index: 100;
+      background: var(--card-bg);
+      padding: 16px;
+      border-radius: var(--border-radius);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      border: 1px solid var(--border-color);
+      margin-bottom: 24px;
+      backdrop-filter: blur(10px);
+    }
+
+    .search-box {
+      position: relative;
+      margin-bottom: 12px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 12px 16px 12px 42px;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .search-box input:focus {
+      border-color: var(--primary-color);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 18px;
+      height: 18px;
+      fill: var(--text-muted);
+    }
+
+    .filter-chips {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+
+    .filter-chips::-webkit-scrollbar {
+      display: none;
+    }
+
+    .chip {
+      background-color: var(--chip-bg);
+      color: var(--chip-text);
+      border: 1px solid var(--border-color);
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .chip.active, .chip:hover {
+      background-color: var(--primary-color);
+      color: #ffffff;
+      border-color: var(--primary-color);
+    }
+
     .notice-card {
-      background-color: #e7f1ff;
-      border-left: 5px solid var(--primary-color);
+      background-color: var(--notice-bg);
+      border-left: 5px solid var(--notice-border);
       padding: 18px 20px;
-      border-radius: 8px;
-      margin-bottom: 32px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+      border-radius: 10px;
+      margin-bottom: 28px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
     }
 
     .notice-card h3 {
-      color: #084298;
-      font-size: 1.1rem;
-      margin-bottom: 8px;
+      color: var(--primary-color);
+      font-size: 1.05rem;
+      margin-bottom: 6px;
     }
 
-    .notice-card p {
-      font-size: 0.92rem;
-      color: #2b3035;
-      margin-bottom: 6px;
+    .notice-card p, .notice-card ul {
+      font-size: 0.9rem;
+      color: var(--text-main);
     }
 
     .notice-card ul {
       margin-left: 20px;
-      font-size: 0.9rem;
-      color: #333;
+      margin-top: 6px;
     }
 
     .category-block {
@@ -95,79 +195,78 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      border-bottom: 2px solid #dee2e6;
-      padding-bottom: 8px;
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 10px;
       margin-bottom: 20px;
     }
 
     .category-header h2 {
       font-size: 1.3rem;
-      color: #212529;
+      color: var(--text-main);
+      font-weight: 700;
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 18px;
     }
 
     .card {
       background: var(--card-bg);
       border-radius: var(--border-radius);
-      padding: 18px;
+      padding: 20px;
       box-shadow: var(--box-shadow);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       border: 1px solid var(--border-color);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
     }
 
     .card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
-    }
-
-    .card-top {
-      margin-bottom: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
     }
 
     .provider-title {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      gap: 8px;
+      gap: 10px;
       margin-bottom: 8px;
     }
 
     .provider-name {
       font-weight: 700;
       font-size: 1.1rem;
-      color: #1a202c;
+      color: var(--text-main);
       line-height: 1.3;
     }
 
     .location-tag {
-      background-color: #e2e8f0;
-      color: #4a5568;
+      background-color: var(--chip-bg);
+      color: var(--chip-text);
       font-size: 0.8rem;
       padding: 4px 8px;
       border-radius: 6px;
       font-weight: 600;
       white-space: nowrap;
+      border: 1px solid var(--border-color);
     }
 
     .description {
       font-size: 0.92rem;
-      color: #4a5568;
+      color: var(--text-muted);
       line-height: 1.45;
+      margin-bottom: 16px;
     }
 
     .actions {
       display: flex;
       flex-direction: column;
       gap: 8px;
-      margin-top: 14px;
     }
 
     .btn-whatsapp {
@@ -177,12 +276,13 @@
       background-color: var(--whatsapp-color);
       color: white;
       text-decoration: none;
-      padding: 10px 14px;
-      border-radius: 8px;
+      padding: 12px 16px;
+      border-radius: 10px;
       font-weight: 600;
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       transition: background-color 0.2s ease;
       text-align: center;
+      min-height: 44px;
     }
 
     .btn-whatsapp:hover {
@@ -190,15 +290,58 @@
     }
 
     .btn-whatsapp svg {
-      width: 18px;
-      height: 18px;
+      width: 20px;
+      height: 20px;
       fill: currentColor;
       margin-right: 8px;
     }
 
+    .no-results {
+      text-align: center;
+      padding: 40px;
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      display: none;
+    }
+
+    /* Back to top button */
+    .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: var(--primary-color);
+      color: white;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      border: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 200;
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .back-to-top svg {
+      width: 22px;
+      height: 22px;
+      fill: currentColor;
+    }
+
     footer {
       text-align: center;
-      padding: 20px;
+      padding: 24px;
       color: var(--text-muted);
       font-size: 0.85rem;
       margin-top: 20px;
@@ -209,31 +352,48 @@
 
 <div class="container">
   <header>
-    <h1>🏢 Guia de Prestadores de Serviços e Vendedores</h1>
+    <h1>🏢 Guia de Prestadores & Vendedores</h1>
     <p>Condomínio Porto Boa Vista</p>
   </header>
 
+  <!-- BUSCA E FILTROS RÁPIDOS -->
+  <div class="controls-wrapper">
+    <div class="search-box">
+      <svg class="search-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+      <input type="text" id="searchInput" placeholder="Buscar por nome, serviço, produto ou apto..." oninput="filterServices()">
+    </div>
+    
+    <div class="filter-chips">
+      <button class="chip active" onclick="filterCategory('todos', this)">Todos</button>
+      <button class="chip" onclick="filterCategory('doces', this)">🍰 Doces</button>
+      <button class="chip" onclick="filterCategory('lanches', this)">🍔 Lanches & Marmitas</button>
+      <button class="chip" onclick="filterCategory('servicos', this)">🛠️ Serviços Residenciais</button>
+      <button class="chip" onclick="filterCategory('saude', this)">🩺 Saúde & Beleza</button>
+      <button class="chip" onclick="filterCategory('moda', this)">💎 Moda & Acessórios</button>
+      <button class="chip" onclick="filterCategory('educacao', this)">📚 Educação</button>
+      <button class="chip" onclick="filterCategory('outros', this)">🐾 Pet & Outros</button>
+    </div>
+  </div>
+
   <div class="notice-card">
     <h3>📢 Avisos & Cadastros</h3>
-    <p>Este guia reúne os condôminos que optaram por divulgar seus produtos e serviços, facilitando o contato entre vizinhos. Dados adicionados apenas com autorização prévia.</p>
-    <p><strong>Para se cadastrar:</strong> Envie uma mensagem para a <strong>Carol no WhatsApp (51) 98940-4174</strong> com:</p>
-    <ul>
-      <li>Nome</li>
-      <li>Torre e Apartamento</li>
-      <li>O que você vende / realiza</li>
-      <li>Número para contato</li>
-    </ul>
+    <p>Este guia reúne os condôminos que optaram por divulgar seus produtos e serviços.</p>
+    <p><strong>Quer incluir o seu serviço?</strong> Envie para a <strong>Carol no WhatsApp (51) 98940-4174</strong> com: Nome, Torre/Apto, descrição e número de contato.</p>
+  </div>
+
+  <div id="noResults" class="no-results">
+    <p>Nenhum prestador de serviço encontrado para a busca realizada.</p>
   </div>
 
   <!-- DOCES E CONFEITARIA -->
-  <div class="category-block">
+  <div class="category-block" data-category="doces">
     <div class="category-header">
       <h2>🍰 Doces e Confeitaria</h2>
     </div>
     <div class="grid">
       
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Natalia</span>
             <span class="location-tag">T5 • Apto 605</span>
@@ -249,7 +409,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Doce Encanto (Karolyne)</span>
             <span class="location-tag">T5 • Apto 806</span>
@@ -265,7 +425,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Doce Sonho (Nicole)</span>
             <span class="location-tag">T3 • Apto 103</span>
@@ -281,7 +441,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Rafaela</span>
             <span class="location-tag">T6 • Apto 608</span>
@@ -297,7 +457,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Tatiana Martins</span>
             <span class="location-tag">T2 • Apto 608</span>
@@ -313,7 +473,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Suellen e Igor</span>
             <span class="location-tag">T6 • Apto 703</span>
@@ -333,7 +493,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Karina</span>
             <span class="location-tag">T7</span>
@@ -351,15 +511,15 @@
     </div>
   </div>
 
-  <!-- AÇAÍ, LANCHES & MARMITAS -->
-  <div class="category-block">
+  <!-- LANCHES & MARMITAS -->
+  <div class="category-block" data-category="lanches">
     <div class="category-header">
       <h2>🍔 Lanches, Marmitas & Bebidas</h2>
     </div>
     <div class="grid">
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Cantinho do Açaí</span>
             <span class="location-tag">T6 • Apto 804</span>
@@ -375,7 +535,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Tchê Espetinhos e Xis (Bruno e Julia)</span>
             <span class="location-tag">T1 • Apto 1006</span>
@@ -391,7 +551,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Tálita</span>
             <span class="location-tag">T2 • Apto 102</span>
@@ -407,7 +567,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Marmitas da Mi (Michele Nunes)</span>
             <span class="location-tag">T1 • Apto 305</span>
@@ -423,7 +583,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Kamila Pegoraro</span>
             <span class="location-tag">T1 • Apto 307</span>
@@ -439,7 +599,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Suellen e Igor</span>
             <span class="location-tag">T6 • Apto 703</span>
@@ -459,7 +619,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Karina</span>
             <span class="location-tag">T7</span>
@@ -475,7 +635,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Brenda Escobar</span>
             <span class="location-tag">T7 • Apto 906</span>
@@ -494,14 +654,14 @@
   </div>
 
   <!-- SERVIÇOS RESIDENCIAIS -->
-  <div class="category-block">
+  <div class="category-block" data-category="servicos">
     <div class="category-header">
       <h2>🛠️ Serviços Residenciais & Manutenção</h2>
     </div>
     <div class="grid">
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Maykon Pereira</span>
             <span class="location-tag">T1 • Apto 307</span>
@@ -517,7 +677,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Luciano</span>
             <span class="location-tag">T1 • Apto 105</span>
@@ -533,7 +693,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Claudete Goelzer</span>
             <span class="location-tag">T4 • Apto 105</span>
@@ -549,7 +709,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Thiago Reis</span>
             <span class="location-tag">T5 • Apto 603</span>
@@ -565,7 +725,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Luis Cardoso</span>
             <span class="location-tag">T4 • Apto 202</span>
@@ -581,7 +741,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Jean Cardoso (Jetechgas)</span>
             <span class="location-tag">T4 • Apto 808</span>
@@ -597,7 +757,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Fabrício Bisch</span>
             <span class="location-tag">T7 • Apto 403</span>
@@ -616,14 +776,14 @@
   </div>
 
   <!-- SAÚDE & BEM-ESTAR -->
-  <div class="category-block">
+  <div class="category-block" data-category="saude">
     <div class="category-header">
       <h2>🩺 Saúde, Beleza & Bem-Estar</h2>
     </div>
     <div class="grid">
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Eduarda Leiria</span>
             <span class="location-tag">T2 • Apto 601</span>
@@ -639,7 +799,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Rafaela Nail</span>
             <span class="location-tag">T2 • Apto 403</span>
@@ -655,7 +815,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Eliana da Silva Alves</span>
             <span class="location-tag">T7 • Apto 301</span>
@@ -671,7 +831,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Tamires Pinheiro</span>
             <span class="location-tag">T6 • Apto 208</span>
@@ -687,7 +847,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Henrique Escalier</span>
             <span class="location-tag">T5 • Apto 804</span>
@@ -703,7 +863,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Vitória Cardoso</span>
             <span class="location-tag">T2 • Apto 604</span>
@@ -719,7 +879,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Raiane</span>
             <span class="location-tag">T7 • Apto 1204</span>
@@ -735,7 +895,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Vera</span>
             <span class="location-tag">T7 • Apto 1107</span>
@@ -751,7 +911,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Franciele Silvino</span>
             <span class="location-tag">T5 • Apto 206</span>
@@ -767,7 +927,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Laura Carvalho</span>
             <span class="location-tag">T5 • Apto 202</span>
@@ -783,7 +943,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Elisiane Fidélis</span>
             <span class="location-tag">T3 • Apto 102</span>
@@ -802,14 +962,14 @@
   </div>
 
   <!-- MODA & ACESSÓRIOS -->
-  <div class="category-block">
+  <div class="category-block" data-category="moda">
     <div class="category-header">
       <h2>💎 Moda & Acessórios</h2>
     </div>
     <div class="grid">
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Raiane</span>
             <span class="location-tag">T7 • Apto 1204</span>
@@ -825,7 +985,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Francielle</span>
             <span class="location-tag">T5 • Apto 203</span>
@@ -841,7 +1001,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Keyla Domingues</span>
             <span class="location-tag">T4</span>
@@ -860,14 +1020,14 @@
   </div>
 
   <!-- EDUCAÇÃO, AULAS & MÚSICA -->
-  <div class="category-block">
+  <div class="category-block" data-category="educacao">
     <div class="category-header">
       <h2>📚 Educação & Aulas</h2>
     </div>
     <div class="grid">
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Ravena Araujo</span>
             <span class="location-tag">T3 • Apto 1207</span>
@@ -883,7 +1043,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Felipe Baseggio</span>
             <span class="location-tag">T5 • Apto 106</span>
@@ -899,7 +1059,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Camila</span>
             <span class="location-tag">T1 • Apto 1204</span>
@@ -918,14 +1078,14 @@
   </div>
 
   <!-- PET & DIVERSOS -->
-  <div class="category-block">
+  <div class="category-block" data-category="outros">
     <div class="category-header">
       <h2>🐾 Pet, Tecnologia & Outros Serviços</h2>
     </div>
     <div class="grid">
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Michelle Carolina</span>
             <span class="location-tag">T4 • Apto 905</span>
@@ -941,7 +1101,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Juliana Andrade</span>
             <span class="location-tag">T7 • Apto 1205</span>
@@ -957,7 +1117,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Eduarda Leiria (DUDUTEC)</span>
             <span class="location-tag">T2 • Apto 601</span>
@@ -973,7 +1133,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Leandro Santos</span>
             <span class="location-tag">T4 • Apto 1002</span>
@@ -989,7 +1149,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Ks Decorações (Carol)</span>
             <span class="location-tag">T4 • Apto 202</span>
@@ -1005,7 +1165,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Laura Carvalho</span>
             <span class="location-tag">T5 • Apto 202</span>
@@ -1021,7 +1181,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Bianca</span>
             <span class="location-tag">T7 • Apto 1106</span>
@@ -1037,7 +1197,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Rafaela</span>
             <span class="location-tag">T6 • Apto 608</span>
@@ -1053,7 +1213,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Elisiane Fidélis</span>
             <span class="location-tag">T3 • Apto 102</span>
@@ -1069,7 +1229,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Tamires Pinheiro</span>
             <span class="location-tag">T6 • Apto 208</span>
@@ -1085,7 +1245,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Thiago Reis</span>
             <span class="location-tag">T5 • Apto 603</span>
@@ -1101,7 +1261,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Luis Elvio</span>
             <span class="location-tag">T2 • Apto 102</span>
@@ -1117,7 +1277,7 @@
       </div>
 
       <div class="card">
-        <div class="card-top">
+        <div>
           <div class="provider-title">
             <span class="provider-name">Love Secret (Cintia e Anderson)</span>
             <span class="location-tag">T1 • Apto 1203</span>
@@ -1136,9 +1296,86 @@
   </div>
 
   <footer>
-    <p>Guia de Prestadores & Vendedores • Condomínio Porto Boa Vista</p>
+    <p>Guia do Condomínio Porto Boa Vista • Criado para facilitar o dia a dia entre vizinhos</p>
   </footer>
 </div>
+
+<!-- Botão Voltar ao Topo -->
+<button class="back-to-top" id="backToTop" onclick="scrollToTop()">
+  <svg viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
+</button>
+
+<script>
+  let activeCategory = 'todos';
+
+  function filterServices() {
+    const query = document.getElementById('searchInput').value.toLowerCase().trim();
+    const categories = document.querySelectorAll('.category-block');
+    let totalVisibleCards = 0;
+
+    categories.forEach(category => {
+      const categoryName = category.getAttribute('data-category');
+      const cards = category.querySelectorAll('.card');
+      let visibleCardsInCategory = 0;
+
+      cards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        const matchesSearch = text.includes(query);
+        const matchesCategory = activeCategory === 'todos' || categoryName === activeCategory;
+
+        if (matchesSearch && matchesCategory) {
+          card.style.display = 'flex';
+          visibleCardsInCategory++;
+          totalVisibleCards++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      if (visibleCardsInCategory > 0) {
+        category.style.display = 'block';
+      } else {
+        category.style.display = 'none';
+      }
+    });
+
+    const noResults = document.getElementById('noResults');
+    if (totalVisibleCards === 0) {
+      noResults.style.display = 'block';
+    } else {
+      noResults.style.display = 'none';
+    }
+  }
+
+  function filterCategory(categoryName, btnElement) {
+    activeCategory = categoryName;
+
+    // Toggle active state on chips
+    document.querySelectorAll('.chip').forEach(chip => {
+      chip.classList.remove('active');
+    });
+    btnElement.classList.add('active');
+
+    filterServices();
+  }
+
+  // Back to top behavior
+  const backToTopBtn = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      backToTopBtn.classList.add('visible');
+    } else {
+      backToTopBtn.classList.remove('visible');
+    }
+  });
+
+  function scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
+</script>
 
 </body>
 </html>
